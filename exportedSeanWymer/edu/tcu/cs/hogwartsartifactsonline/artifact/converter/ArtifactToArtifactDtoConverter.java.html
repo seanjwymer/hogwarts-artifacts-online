@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>ArtifactToArtifactDtoConverter.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ArtifactToArtifactDtoConverter.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">.</span><span class="s1">converter</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">.</span><span class="s1">Artifact</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">ArtifactDto</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">wizard</span><span class="s2">.</span><span class="s1">converter</span><span class="s2">.</span><span class="s1">WizardToWizardDtoConverter</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">core</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">.</span><span class="s1">converter</span><span class="s2">.</span><span class="s1">Converter</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">stereotype</span><span class="s2">.</span><span class="s1">Component</span><span class="s2">;</span>
+
+<span class="s1">@Component</span>
+<span class="s0">public class </span><span class="s1">ArtifactToArtifactDtoConverter </span><span class="s0">implements </span><span class="s1">Converter</span><span class="s2">&lt;</span><span class="s1">Artifact</span><span class="s2">, </span><span class="s1">ArtifactDto</span><span class="s2">&gt; {</span>
+
+    <span class="s0">private final </span><span class="s1">WizardToWizardDtoConverter wizardToWizardDtoConverter</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">ArtifactToArtifactDtoConverter</span><span class="s2">(</span><span class="s1">WizardToWizardDtoConverter wizardToWizardDtoConverter</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">wizardToWizardDtoConverter </span><span class="s2">= </span><span class="s1">wizardToWizardDtoConverter</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">ArtifactDto convert</span><span class="s2">(</span><span class="s1">Artifact source</span><span class="s2">) {</span>
+        <span class="s1">ArtifactDto artifactDto </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArtifactDto</span><span class="s2">(</span><span class="s1">source</span><span class="s2">.</span><span class="s1">getId</span><span class="s2">(),</span>
+                                                    <span class="s1">source</span><span class="s2">.</span><span class="s1">getName</span><span class="s2">(),</span>
+                                                    <span class="s1">source</span><span class="s2">.</span><span class="s1">getDescription</span><span class="s2">(),</span>
+                                                    <span class="s1">source</span><span class="s2">.</span><span class="s1">getImageUrl</span><span class="s2">(),</span>
+                                                    <span class="s1">source</span><span class="s2">.</span><span class="s1">getOwner</span><span class="s2">() != </span><span class="s0">null</span>
+                                                            <span class="s2">? </span><span class="s0">this</span><span class="s2">.</span><span class="s1">wizardToWizardDtoConverter</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">(</span><span class="s1">source</span><span class="s2">.</span><span class="s1">getOwner</span><span class="s2">())</span>
+                                                            <span class="s2">: </span><span class="s0">null</span><span class="s2">);</span>
+        <span class="s0">return </span><span class="s1">artifactDto</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
