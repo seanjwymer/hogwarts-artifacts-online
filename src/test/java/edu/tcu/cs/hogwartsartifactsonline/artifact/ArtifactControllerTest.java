@@ -99,4 +99,18 @@ class ArtifactControllerTest {
                 .andExpect(jsonPath("$.data.name").value("Deluminator"));
     }
 
+    @Test
+    void testFindArtifactByIdNotFound() throws Exception {
+        // Given
+        given(this.artifactService.findById("1250808601744904191")).willThrow(new ArtifactNotFoundException("1250808601744904191"));
+
+
+        // When
+        this.mockMvc.perform(get("/api/v1/artifacts/1250808601744904191").accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.flag").value(false))
+                .andExpect(jsonPath("$.code").value(StatusCode.NOT_FOUND))
+                .andExpect(jsonPath("$.message").value("Could not find artifact with Id 1250808601744904191 :("))
+                .andExpect(jsonPath("$.data").isEmpty());
+    }
+
 }
