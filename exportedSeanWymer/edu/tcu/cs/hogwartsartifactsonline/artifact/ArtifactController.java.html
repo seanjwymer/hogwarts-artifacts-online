@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>ArtifactController.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ArtifactController.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">.</span><span class="s1">converter</span><span class="s2">.</span><span class="s1">ArtifactDtoToArtifactConverter</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">.</span><span class="s1">converter</span><span class="s2">.</span><span class="s1">ArtifactToArtifactDtoConverter</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">.</span><span class="s1">dto</span><span class="s2">.</span><span class="s1">ArtifactDto</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">system</span><span class="s2">.</span><span class="s1">Result</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">system</span><span class="s2">.</span><span class="s1">StatusCode</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">jakarta</span><span class="s2">.</span><span class="s1">validation</span><span class="s2">.</span><span class="s1">Valid</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">springframework</span><span class="s2">.</span><span class="s1">web</span><span class="s2">.</span><span class="s1">bind</span><span class="s2">.</span><span class="s1">annotation</span><span class="s2">.*;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">.</span><span class="s1">Collectors</span><span class="s2">;</span>
+
+<span class="s1">@RestController</span>
+<span class="s1">@RequestMapping</span><span class="s2">(</span><span class="s3">&quot;${api.endpoint.base-url}/artifacts&quot;</span><span class="s2">)</span>
+<span class="s0">public class </span><span class="s1">ArtifactController </span><span class="s2">{</span>
+
+    <span class="s0">private final </span><span class="s1">ArtifactService artifactService</span><span class="s2">;</span>
+
+    <span class="s0">private final </span><span class="s1">ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter</span><span class="s2">;</span>
+
+    <span class="s0">private final </span><span class="s1">ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">ArtifactController</span><span class="s2">(</span><span class="s1">ArtifactService artifactService</span><span class="s2">, </span><span class="s1">ArtifactToArtifactDtoConverter artifactToArtifactDtoConverter</span><span class="s2">, </span><span class="s1">ArtifactDtoToArtifactConverter artifactDtoToArtifactConverter</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">artifactService </span><span class="s2">= </span><span class="s1">artifactService</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">artifactToArtifactDtoConverter </span><span class="s2">= </span><span class="s1">artifactToArtifactDtoConverter</span><span class="s2">;</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">artifactDtoToArtifactConverter </span><span class="s2">= </span><span class="s1">artifactDtoToArtifactConverter</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@GetMapping</span><span class="s2">(</span><span class="s3">&quot;/{artifactId}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">Result findArtifactById</span><span class="s2">(</span><span class="s1">@PathVariable String artifactId</span><span class="s2">) {</span>
+        <span class="s1">Artifact foundArtifact </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactService</span><span class="s2">.</span><span class="s1">findById</span><span class="s2">(</span><span class="s1">artifactId</span><span class="s2">);</span>
+        <span class="s1">ArtifactDto artifactDto </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactToArtifactDtoConverter</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">(</span><span class="s1">foundArtifact</span><span class="s2">);</span>
+        <span class="s0">return new </span><span class="s1">Result</span><span class="s2">(</span><span class="s0">true</span><span class="s2">, </span><span class="s1">StatusCode</span><span class="s2">.</span><span class="s1">SUCCESS</span><span class="s2">, </span><span class="s3">&quot;Find One Success&quot;</span><span class="s2">, </span><span class="s1">artifactDto</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@GetMapping</span>
+    <span class="s0">public </span><span class="s1">Result findAllArtifacts</span><span class="s2">() {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Artifact</span><span class="s2">&gt; </span><span class="s1">foundArtifacts </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactService</span><span class="s2">.</span><span class="s1">findAll</span><span class="s2">();</span>
+        <span class="s4">// Convert foundArtifacts to a list of artifactDtos</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">ArtifactDto</span><span class="s2">&gt; </span><span class="s1">artifactDtos </span><span class="s2">= </span><span class="s1">foundArtifacts</span><span class="s2">.</span><span class="s1">stream</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">map</span><span class="s2">(</span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactToArtifactDtoConverter::convert</span><span class="s2">)</span>
+                <span class="s2">.</span><span class="s1">collect</span><span class="s2">(</span><span class="s1">Collectors</span><span class="s2">.</span><span class="s1">toList</span><span class="s2">());</span>
+        <span class="s0">return new </span><span class="s1">Result</span><span class="s2">(</span><span class="s0">true</span><span class="s2">, </span><span class="s1">StatusCode</span><span class="s2">.</span><span class="s1">SUCCESS</span><span class="s2">, </span><span class="s3">&quot;Find All Success&quot;</span><span class="s2">, </span><span class="s1">artifactDtos</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s1">@PostMapping</span>
+    <span class="s0">public </span><span class="s1">Result addArtifact</span><span class="s2">(</span><span class="s1">@Valid @RequestBody ArtifactDto artifactDto</span><span class="s2">){</span>
+        <span class="s4">// Convert artifact</span>
+        <span class="s1">Artifact newArtifact </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactDtoToArtifactConverter</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">(</span><span class="s1">artifactDto</span><span class="s2">);</span>
+        <span class="s1">Artifact savedArtifact </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactService</span><span class="s2">.</span><span class="s1">save</span><span class="s2">(</span><span class="s1">newArtifact</span><span class="s2">);</span>
+        <span class="s1">ArtifactDto savedArtifactDto </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactToArtifactDtoConverter</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">(</span><span class="s1">savedArtifact</span><span class="s2">);</span>
+        <span class="s0">return new </span><span class="s1">Result</span><span class="s2">(</span><span class="s0">true</span><span class="s2">, </span><span class="s1">StatusCode</span><span class="s2">.</span><span class="s1">SUCCESS</span><span class="s2">, </span><span class="s3">&quot;Add Success&quot;</span><span class="s2">, </span><span class="s1">savedArtifactDto</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@PutMapping</span><span class="s2">(</span><span class="s3">&quot;/{artifactId}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">Result updateArtifact</span><span class="s2">(</span><span class="s1">@PathVariable String artifactId</span><span class="s2">, </span><span class="s1">@Valid @RequestBody ArtifactDto artifactDto</span><span class="s2">){</span>
+        <span class="s1">Artifact update </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactDtoToArtifactConverter</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">(</span><span class="s1">artifactDto</span><span class="s2">);</span>
+        <span class="s1">Artifact updatedArtifact </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactService</span><span class="s2">.</span><span class="s1">update</span><span class="s2">(</span><span class="s1">artifactId</span><span class="s2">, </span><span class="s1">update</span><span class="s2">);</span>
+        <span class="s1">ArtifactDto updatedArtifactDto </span><span class="s2">= </span><span class="s0">this</span><span class="s2">.</span><span class="s1">artifactToArtifactDtoConverter</span><span class="s2">.</span><span class="s1">convert</span><span class="s2">(</span><span class="s1">updatedArtifact</span><span class="s2">);</span>
+        <span class="s0">return new </span><span class="s1">Result</span><span class="s2">(</span><span class="s0">true</span><span class="s2">, </span><span class="s1">StatusCode</span><span class="s2">.</span><span class="s1">SUCCESS</span><span class="s2">, </span><span class="s3">&quot;Update Success&quot;</span><span class="s2">, </span><span class="s1">updatedArtifactDto</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@DeleteMapping</span><span class="s2">(</span><span class="s3">&quot;/artifacts/{artifactId}&quot;</span><span class="s2">)</span>
+    <span class="s0">public </span><span class="s1">Result deleteArtifact</span><span class="s2">(</span><span class="s1">@PathVariable String artifactId</span><span class="s2">){</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">artifactService</span><span class="s2">.</span><span class="s1">delete</span><span class="s2">(</span><span class="s1">artifactId</span><span class="s2">);</span>
+        <span class="s0">return new </span><span class="s1">Result</span><span class="s2">(</span><span class="s0">true</span><span class="s2">, </span><span class="s1">StatusCode</span><span class="s2">.</span><span class="s1">SUCCESS</span><span class="s2">, </span><span class="s3">&quot;Delete Success&quot;</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

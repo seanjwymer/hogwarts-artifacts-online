@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>Artifact.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Artifact.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">artifact</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">edu</span><span class="s2">.</span><span class="s1">tcu</span><span class="s2">.</span><span class="s1">cs</span><span class="s2">.</span><span class="s1">hogwartsartifactsonline</span><span class="s2">.</span><span class="s1">wizard</span><span class="s2">.</span><span class="s1">Wizard</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">jakarta</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Entity</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">jakarta</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">Id</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">jakarta</span><span class="s2">.</span><span class="s1">persistence</span><span class="s2">.</span><span class="s1">ManyToOne</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">Serializable</span><span class="s2">;</span>
+
+<span class="s1">@Entity</span>
+<span class="s0">public class </span><span class="s1">Artifact </span><span class="s0">implements </span><span class="s1">Serializable </span><span class="s2">{</span>
+
+    <span class="s1">@Id</span>
+    <span class="s0">private </span><span class="s1">String id</span><span class="s2">;</span>
+
+    <span class="s0">private </span><span class="s1">String name</span><span class="s2">;</span>
+
+    <span class="s0">private </span><span class="s1">String description</span><span class="s2">;</span>
+
+    <span class="s0">private </span><span class="s1">String imageUrl</span><span class="s2">;</span>
+
+    <span class="s1">@ManyToOne</span>
+    <span class="s0">private </span><span class="s1">Wizard owner</span><span class="s2">;</span>
+
+    <span class="s0">public </span><span class="s1">Artifact</span><span class="s2">() {</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getId</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">id</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setId</span><span class="s2">(</span><span class="s1">String id</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">id </span><span class="s2">= </span><span class="s1">id</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getName</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">name</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setName</span><span class="s2">(</span><span class="s1">String name</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">name </span><span class="s2">= </span><span class="s1">name</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getDescription</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">description</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setDescription</span><span class="s2">(</span><span class="s1">String description</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">description </span><span class="s2">= </span><span class="s1">description</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">String getImageUrl</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">imageUrl</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setImageUrl</span><span class="s2">(</span><span class="s1">String imageUrl</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">imageUrl </span><span class="s2">= </span><span class="s1">imageUrl</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public </span><span class="s1">Wizard getOwner</span><span class="s2">() {</span>
+        <span class="s0">return </span><span class="s1">owner</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setOwner</span><span class="s2">(</span><span class="s1">Wizard owner</span><span class="s2">) {</span>
+        <span class="s0">this</span><span class="s2">.</span><span class="s1">owner </span><span class="s2">= </span><span class="s1">owner</span><span class="s2">;</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
