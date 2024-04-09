@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ class ArtifactServiceTest {
 
         // Then.
         assertThat(thrown)
-                .isInstanceOf(ArtifactNotFoundException.class)
+                .isInstanceOf(ObjectNotFoundException.class)
                 .hasMessage("Could not find artifact with Id 1250808601744904192 :(");
         verify(artifactRepository, times(1)).findById("1250808601744904192");
     }
@@ -189,7 +190,7 @@ class ArtifactServiceTest {
         given(this.artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
         // When
-        assertThrows(ArtifactNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             this.artifactService.update("1250808601744904192", update);
         });
 
@@ -222,7 +223,7 @@ class ArtifactServiceTest {
         given(this.artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
         // When
-        assertThrows(ArtifactNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
             this.artifactService.delete("1250808601744904192");
         });
 
