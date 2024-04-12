@@ -6,6 +6,10 @@ import jakarta.transaction.Transactional;
 //import org.springframework.security.core.userdetails.UserDetailsService;
 //import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,5 +63,12 @@ public class UserService implements UserDetailsService {
         this.userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("user", userId));
         this.userRepository.deleteById(userId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository.findByUsername(username) // First, we need to find this user from database.
+                .map(hogwartsUser -> new MyUserPrincipal(hogwartsUser)) // If found, wrap the returned user instance in a MyUserPrincipal instance.
+                .orElseThrow(() -> new UsernameNotFoundException("username " + username + " is not found.")); // Otherwise, throw an exception.
     }
 }
