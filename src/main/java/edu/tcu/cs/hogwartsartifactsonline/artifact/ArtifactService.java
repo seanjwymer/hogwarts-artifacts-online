@@ -8,6 +8,8 @@ import edu.tcu.cs.hogwartsartifactsonline.client.ai.chat.ChatClient;
 import edu.tcu.cs.hogwartsartifactsonline.client.ai.chat.dto.ChatRequest;
 import edu.tcu.cs.hogwartsartifactsonline.client.ai.chat.dto.ChatResponse;
 import edu.tcu.cs.hogwartsartifactsonline.client.ai.chat.dto.Message;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import edu.tcu.cs.hogwartsartifactsonline.system.exception.ObjectNotFoundException;
 import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
@@ -85,6 +87,10 @@ public class ArtifactService {
 
         // Retrieve the AI-generated text and return to the controller.
         return chatResponse.choices().get(0).message().content();
+    }
+
+    public Page<Artifact> findAll(Pageable pageable) {
+        return this.artifactRepository.findAll(pageable);
     }
 
 }
